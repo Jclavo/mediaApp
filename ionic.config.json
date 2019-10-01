@@ -1,5 +1,7 @@
 {
   "name": "app-media",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
