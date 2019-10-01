@@ -12,11 +12,40 @@ import { Media, MediaObject } from '@ionic-native/media/ngx';
 export class HomePage {
 
   public file: MediaObject;
+  public slides: any;
   
   constructor(private media: Media)
   {
     this.file = this.media.create('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
     this.file.onStatusUpdate.subscribe(status => console.log(status));
+
+    this.slides = [
+      {
+        id: 1,
+        image: '../../assets/images/1.jpg',
+        name: 'olá'
+      },
+      {
+        id: 2,
+        image: '../../assets/images/2.jpg',
+        name: 'Eu'
+      },
+      {
+        id: 3,
+        image: '../../assets/images/3.jpg',
+        name: 'sou'
+      },
+      {
+        id: 4,
+        image: '../../assets/images/4.jpg',
+        name: 'um'
+      },
+      {
+        id: 5,
+        image: '../../assets/images/5.jpg',
+        name: 'slider'
+      }
+    ]
   }
 
   playAudio()

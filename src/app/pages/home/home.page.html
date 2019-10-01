@@ -7,6 +7,13 @@
 </ion-header>
 
 <ion-content>
+    <ion-slides>
+        <ion-slide *ngFor="let s of slides">
+            <!-- <img src="../../assets/images/{{s.id}}.jpg"> -->
+            {{s.name}}
+         </ion-slide>
+     </ion-slides>
+
   <ion-item>
     <ion-button (click)="playAudio()">Play Audio</ion-button>
     <ion-button (click)="stopAudio()" color="danger">Stop Audio</ion-button>
