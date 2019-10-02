@@ -84,7 +84,7 @@ export class HomePage {
     //status
     this.playStatus = true;
     this.pauseStatus = false;
-    this.stopStatus = false;
+    this.stopStatus = true;
   }
 
   stopAudio()
@@ -110,6 +110,7 @@ export class HomePage {
     // get file duration
     this.songDuration = this.file.getDuration();
     console.log(this.songDuration);
+    //this.songDuration = 300;
   }
 
   realease()

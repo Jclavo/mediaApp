@@ -32,7 +32,7 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-range [(ngModel)]="songProgress" min="0" [max]="songDuration" pin="true" snaps="true">
+              <ion-range [(ngModel)]="songProgress" min="0" [max]="songDuration" pin="true" snaps="true" [disabled]="true" >
                 <ion-icon size="small" slot="start" name="musical-note"></ion-icon>
                 <ion-icon slot="end" name="musical-note"></ion-icon>
               </ion-range>
@@ -60,7 +60,7 @@
               </ion-button>
 
 
-              <ion-button (click)="getDuration()" color="success">Get Duration</ion-button>
+              <!-- <ion-button (click)="getDuration()" color="success">Get Duration</ion-button> -->
 
               <!-- <ion-button (click)="getPosition()" color="tertiary">Get Position</ion-button>
             
