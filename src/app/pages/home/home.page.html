@@ -7,19 +7,68 @@
 </ion-header>
 
 <ion-content>
-    <ion-slides>
+  <!-- <ion-slides>
         <ion-slide *ngFor="let s of slides">
-            <!-- <img src="../../assets/images/{{s.id}}.jpg"> -->
             {{s.name}}
          </ion-slide>
-     </ion-slides>
+     </ion-slides> -->
 
-  <ion-item>
-    <ion-button (click)="playAudio()">Play Audio</ion-button>
-    <ion-button (click)="stopAudio()" color="danger">Stop Audio</ion-button>
-    <ion-button (click)="pauseAudio()" color="secondary">Pause Audio</ion-button>
-    <ion-button (click)="getPosition()" color="tertiary">Get Position</ion-button>
-    <ion-button (click)="getDuration()" color="success">Get Duration</ion-button>
-    <ion-button (click)="release()" color="warning">Release</ion-button>
-  </ion-item>
+
+  <ion-slides>
+    <ion-slide *ngFor="let s of slides">
+      <ion-card>
+        <!-- <ion-thumbnail style="text-align:center;">
+            <img src="assets/imgs/music.png"/>
+        </ion-thumbnail> -->
+
+        <ion-icon name="musical-notes" size="large" color="primary"></ion-icon>
+
+        <ion-card-content>
+          <ion-card-title>
+            {{ s.name }}
+          </ion-card-title>
+          <p> Marca: xxxxxx </p>
+        </ion-card-content>
+        <ion-row>
+            <ion-item >
+                <ion-range min="0" max="100" >
+                  <ion-icon size="small" slot="start" name="musical-note"></ion-icon>
+                  <ion-icon slot="end" name="musical-note"></ion-icon>
+                </ion-range>
+              </ion-item>
+        </ion-row>
+        <ion-row>
+          <!-- <ion-col style="text-align:center;"> -->
+          <ion-item>
+
+            <ion-button (click)="playAudio()" color="primary" fill="clear">
+              <ion-icon slot="icon-only" name="play" size="large"></ion-icon>
+              Play
+            </ion-button>
+
+            <ion-button (click)="pauseAudio()" color="secondary" fill="clear">
+              <ion-icon slot="icon-only" name="pause" size="large"></ion-icon>
+              Pause
+            </ion-button>
+
+            <ion-button (click)="stopAudio()" color="danger" fill="clear">
+              <ion-icon slot="icon-only" name="radio-button-on" size="large"></ion-icon>
+              Stop
+            </ion-button>
+
+
+            <ion-button (click)="getDuration()" color="success">Get Duration</ion-button>
+
+            <!-- <ion-button (click)="getPosition()" color="tertiary">Get Position</ion-button>
+            
+            <ion-button (click)="release()" color="warning">Release</ion-button> -->
+          </ion-item>
+
+          <!-- </ion-col> -->
+        </ion-row>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+
+
 </ion-content>

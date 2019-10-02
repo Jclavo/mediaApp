@@ -13,12 +13,16 @@ export class HomePage {
 
   public file: MediaObject;
   public slides: any;
+
+  public duration: any;
   
   constructor(private media: Media)
   {
     this.file = this.media.create('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
     this.file.onStatusUpdate.subscribe(status => console.log(status));
 
+    
+  
     this.slides = [
       {
         id: 1,
@@ -46,6 +50,11 @@ export class HomePage {
         name: 'slider'
       }
     ]
+  }
+
+  ionViewDidEnter()
+  {
+    this.getDuration();
   }
 
   playAudio()
@@ -76,8 +85,8 @@ export class HomePage {
   getDuration()
   {
     // get file duration
-    let duration = this.file.getDuration();
-    console.log(duration);
+    this.duration = this.file.getDuration();
+    console.log(this.duration);
   }
 
   realease()
