@@ -14,15 +14,26 @@ export class HomePage {
   public file: MediaObject;
   public slides: any;
 
-  public duration: any;
+  public songDuration: any;
+  public songProgress: number = 0;
+
+  public playStatus:  boolean = false;
+  public pauseStatus: boolean = false;
+  public stopStatus:  boolean = false;
   
   constructor(private media: Media)
   {
     this.file = this.media.create('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
     this.file.onStatusUpdate.subscribe(status => console.log(status));
 
-    
+    //Set Status
+    this.playStatus = true;
+
+    setInterval(()=> { this.setRange() }, 1000); // CALL every Second
   
+    this.getDuration();
+
+
     this.slides = [
       {
         id: 1,
@@ -54,24 +65,36 @@ export class HomePage {
 
   ionViewDidEnter()
   {
-    this.getDuration();
+    
   }
 
   playAudio()
   {
     // play the file
     this.file.play();
+    //status
+    this.playStatus = false;
+    this.pauseStatus = true;
+    this.stopStatus = true;
+  }
+
+  pauseAudio()
+  {
+    this.file.pause();
+    //status
+    this.playStatus = true;
+    this.pauseStatus = false;
+    this.stopStatus = false;
   }
 
   stopAudio()
   {
     //
     this.file.stop();
-  }
-
-  pauseAudio()
-  {
-    this.file.pause();
+    //status
+    this.playStatus = true;
+    this.pauseStatus = false;
+    this.stopStatus = false;
   }
 
   getPosition()
@@ -85,13 +108,27 @@ export class HomePage {
   getDuration()
   {
     // get file duration
-    this.duration = this.file.getDuration();
-    console.log(this.duration);
+    this.songDuration = this.file.getDuration();
+    console.log(this.songDuration);
   }
 
   realease()
   {
     this.file.release();
+  }
+
+  setRange()
+  {
+    if(! this.playStatus && this.pauseStatus === true)
+    {
+      this.songProgress++;
+    }
+
+    if(!this.stopStatus)
+    {
+      this.songProgress = 0;
+    }
+    
   }
 
 
