@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Song</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form #form="ngForm" (ngSubmit)="salvarCadastroEdificacao(form,$event)" method="post">
+
+<ion-label position="floating">15. Tipo Beiral:</ion-label>
+<ion-item>
+  <ion-input [(ngModel)]="cadastroEdificacao.tipoBeiral" type="text" name="tipoBeiral" maxlength="1" required
+    placeholder="Area Tipo Beiral">
+  </ion-input>
+</ion-item>
+
+<ion-fab vertical="botton" horizontal="top" slot="fixed">
+<section>
+      <ion-button [disabled]="!form.valid" type="submit" color="success">Próximo</ion-button>
+    </section>
+  </ion-fab> 
+
+</form>
+
+</ion-content>
