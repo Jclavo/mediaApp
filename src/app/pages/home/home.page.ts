@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
+import { Router } from '@angular/router';
 
 //const file: MediaObject = this.media.create('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
 
@@ -21,7 +22,8 @@ export class HomePage {
   public pauseStatus: boolean = false;
   public stopStatus:  boolean = false;
   
-  constructor(private media: Media)
+  constructor(private media: Media,
+              private router: Router)
   {
     this.file = this.media.create('https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3');
     this.file.onStatusUpdate.subscribe(status => console.log(status));
@@ -29,7 +31,7 @@ export class HomePage {
     //Set Status
     this.playStatus = true;
 
-    setInterval(()=> { this.setRange() }, 1000); // CALL every Second
+    //setInterval(()=> { this.setRange() }, 1000); // CALL every Second
   
     this.getDuration();
 
@@ -131,6 +133,14 @@ export class HomePage {
     }
     
   }
+
+
+  openSongPage()
+  {
+    this.router.navigate(['/song']);
+  }
+  
+  
 
 
 }
