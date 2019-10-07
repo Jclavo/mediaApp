@@ -12,6 +12,7 @@ import { File } from '@ionic-native/file/ngx';
 export class SongPage implements OnInit {
 
   public imageURI: any;
+  public imageFileName: any;
 
   constructor(private camera: Camera,
     private actionSheetController: ActionSheetController,
@@ -63,6 +64,7 @@ export class SongPage implements OnInit {
     this.camera.getPicture(options).then(imagePath => {
       console.log('Image', imagePath);
       this.imageURI = imagePath;
+      this.imageFileName = "data:image/jpeg;base64," + imagePath;
       console.log('Path', this.file.dataDirectory)
 
       // if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {

@@ -23,7 +23,7 @@
   </ion-item>
   <ion-item>
     <h4>Image Preview</h4>
-    <!-- <img src="{{imageFileName}}" *ngIf="imageFileName" alt="Ionic File" width="300" /> -->
+    <img [src]="imageFileName" alt="Ionic File" width="300" />
   </ion-item>
   <ion-item>
     <ion-button (click)="uploadFile()">Upload</ion-button>
