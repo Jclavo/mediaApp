@@ -10,8 +10,7 @@
 
     <ion-label position="floating">Song's title:</ion-label>
     <ion-item>
-      <!-- [(ngModel)]="song.title" -->
-      <ion-input type="text" name="title" maxlength="45" required placeholder="Song's title">
+      <ion-input [(ngModel)]="song.title" type="text" name="title" maxlength="45" required placeholder="Song's title">
       </ion-input>
     </ion-item>
 
@@ -22,7 +21,8 @@
     </ion-item>
     <ion-item>
       <h4>Image Preview</h4>
-      <img [src]="imageFileName" alt="Ionic File" width="300" />
+      <!-- [src]="song.image" -->
+      <img [src]="song.image" name="image" alt="Ionic File" width="300" />
     </ion-item>
     <input #inputcamera class="inputUpload" type="file" accept="image/*" capture="camera" [hidden]=true />
 
