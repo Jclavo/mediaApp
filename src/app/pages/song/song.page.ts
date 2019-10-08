@@ -106,11 +106,11 @@ export class SongPage implements OnInit {
 
   takePicture(sourceType: any) {
     var options: CameraOptions = {
-      quality: 100,
+      quality: 50,
       sourceType: sourceType,
       // sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      destinationType: this.camera.DestinationType.FILE_URI,
-     // destinationType: this.camera.DestinationType.DATA_URL,
+     // destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       saveToPhotoAlbum: false,
       correctOrientation: true
