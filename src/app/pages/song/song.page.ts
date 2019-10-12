@@ -3,7 +3,10 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { ActionSheetController, Platform } from '@ionic/angular';
 // import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { File } from '@ionic-native/file/ngx';
-import { EnvironmentService } from 'src/app/services/environment.service';
+// import { EnvironmentService } from 'src/app/services/environment.service';
+//Model
+import { SongModel } from 'src/app/models/Song.model';
+
 
 
 @Component({
@@ -20,12 +23,14 @@ export class SongPage implements OnInit {
   public platformsList: any;
   public browser: any;
 
+  private song: SongModel;
+
   constructor(private camera: Camera,
     private actionSheetController: ActionSheetController,
     // private fileChooser: FileChooser,
     private file: File,
     private platform: Platform,
-    private environmentService: EnvironmentService
+    // private environmentService: EnvironmentService
   ) { }
 
   ngOnInit(
@@ -33,9 +38,11 @@ export class SongPage implements OnInit {
     // console.log('Platform', this.environmentService.isBrowser());
     //console.log('Platform List', this.platform.platforms());
     this.platformsList = this.platform.platforms().toString();
-    this.browser = this.environmentService.isBrowser();
-    
-   }
+    // this.browser = this.environmentService.isBrowser();
+
+    this.song = new SongModel();
+
+  }
 
   ionViewDidEnter() {
 
@@ -53,7 +60,8 @@ export class SongPage implements OnInit {
         //UP TO YOU, NOT REALLY BOTHERED
         let base64 = r.target.result as string;
 
-        this.imageFileName  = r.target.result as string; //MEU JC
+        //this.imageFileName = r.target.result as string; //MEU JC
+        this.song.image = r.target.result as string; //MEU JC
 
         //FIXING ORIENTATION USING NPM PLUGIN fix-orientation
         // fixOrientation(base64, { image: true }, (fixed: string, image: any) => {
@@ -77,12 +85,10 @@ export class SongPage implements OnInit {
         text: 'Load from Library',
         handler: () => {
 
-          if(this.platform.is('desktop'))
-          {
+          if (this.platform.is('desktop')) {
             this.loadFromPC();
           }
-          else
-          {
+          else {
             this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
 
@@ -106,11 +112,11 @@ export class SongPage implements OnInit {
 
   takePicture(sourceType: any) {
     var options: CameraOptions = {
-      quality: 50,
+      quality: 100,
       sourceType: sourceType,
       // sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-     // destinationType: this.camera.DestinationType.FILE_URI,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      //destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       saveToPhotoAlbum: false,
       correctOrientation: true
@@ -118,14 +124,14 @@ export class SongPage implements OnInit {
 
     // if(sourceType)
     // {
-      
+
     // }
 
     this.camera.getPicture(options).then(imagePath => {
       console.log('Image', imagePath);
       this.imageURI = imagePath;
-       this.imageFileName = "data:image/jpeg;base64," + imagePath;
-     // this.imageFileName = imagePath;
+      this.imageFileName = "data:image/jpeg;base64," + imagePath;
+      // this.imageFileName = imagePath;
       console.log('Path', this.file.dataDirectory)
 
       // if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
@@ -171,6 +177,19 @@ export class SongPage implements OnInit {
     //   //   //this.alertService.hideLoader(500);
     //   // });
     // }
+  }
+
+  saveSong(formSong)
+  {
+    formSong.value.image = this.song.image;
+
+    //We can use this code above
+  //   const imgBlob = new Blob([reader.result], {
+  //     type: file.type
+  // });
+  // formData.append('file', imgBlob, file.name);
+
+    console.log('FORM', formSong);
   }
 
 }
