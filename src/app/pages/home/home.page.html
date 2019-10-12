@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content >
   <!-- <ion-slides>
         <ion-slide *ngFor="let s of slides">
             {{s.name}}
@@ -81,6 +81,8 @@
   </ion-item> -->
 
   <ion-button (click)="openSongPage()" color="warning">CRUD song</ion-button>
+
+  <ion-button [routerLink]="['/genre']"  color="success">CRUD Genre</ion-button>
 
 
 </ion-content>
