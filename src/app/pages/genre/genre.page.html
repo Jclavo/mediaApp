@@ -9,7 +9,9 @@
       <ion-card>
         <ion-item>
           <ion-label stacked>Nome:</ion-label>
-          <ion-input position="floating" [(ngModel)]="genre.name" type="text" placeholder="Genre" name="name" required>
+          <ion-input position="floating" [(ngModel)]="genre.name" 
+                     type="text" placeholder="Genre" name="name" 
+                     required #inputName>
 
           </ion-input>
           <ion-icon name="book" item-start></ion-icon>
@@ -17,9 +19,9 @@
       </ion-card>
 
     
-      <ion-button (click)="createGenre()" expand="full">
-        <ion-icon slot="icon-only" name="add" ></ion-icon>
-        Add
+      <ion-button (click)="saveGenre()" expand="full" [disabled]="!genre.name">
+        <ion-icon slot="icon-only" name="save" ></ion-icon>
+        Save
       </ion-button>
 
       <ion-item>
@@ -34,7 +36,7 @@
               {{ genre.name }}
             </ion-label>
     
-            <ion-button title="Edit" (click)="updateGenre(genre.id)" fill="clear">
+            <ion-button title="Edit" (click)="prepareUpdateGenre(genre.id)" fill="clear">
               <ion-icon slot="icon-only" name="create" ></ion-icon>
             </ion-button>
     

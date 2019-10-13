@@ -8,4 +8,10 @@ export class GenreModel {
         this.id = id;
         this.name = name;
     }
+
+    clear()
+    {
+        this.id = 0;
+        this.name = null;
+    }
 }
