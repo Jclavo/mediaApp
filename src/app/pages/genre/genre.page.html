@@ -9,7 +9,7 @@
       <ion-card>
         <ion-item>
           <ion-label stacked>Nome:</ion-label>
-          <ion-input position="floating" [(ngModel)]="name" type="text" placeholder="Genre" name="name" required>
+          <ion-input position="floating" [(ngModel)]="genre.name" type="text" placeholder="Genre" name="name" required>
 
           </ion-input>
           <ion-icon name="book" item-start></ion-icon>
@@ -17,7 +17,7 @@
       </ion-card>
 
     
-      <ion-button (click)="function()" expand="full">
+      <ion-button (click)="createGenre()" expand="full">
         <ion-icon slot="icon-only" name="add" ></ion-icon>
         Add
       </ion-button>
@@ -29,16 +29,16 @@
       </ion-item>
 
       <ion-list>
-          <ion-item *ngFor="let genre of genre" >
+          <ion-item *ngFor="let genre of genres" >
             <ion-label>
               {{ genre.name }}
             </ion-label>
     
-            <ion-button title="Edit" [routerLink]="['/update-item', item.id]">
+            <ion-button title="Edit" (click)="updateGenre(genre.id)" fill="clear">
               <ion-icon slot="icon-only" name="create" ></ion-icon>
             </ion-button>
     
-            <ion-button title="Delete" (click)="deleteItem(item.id)">
+            <ion-button title="Delete" (click)="deleteGenre(genre.id)" color="danger" fill="clear">
               <ion-icon slot="icon-only" name="trash" ></ion-icon>
             </ion-button>
     

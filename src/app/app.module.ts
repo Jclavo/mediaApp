@@ -13,11 +13,16 @@ import { Media } from '@ionic-native/media/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 // import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, 
+            IonicModule.forRoot(),
+            AppRoutingModule,
+            HttpClientModule],
+            
   providers: [
     StatusBar,
     SplashScreen,

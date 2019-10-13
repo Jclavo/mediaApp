@@ -32,4 +32,7 @@ sudo update-alternatives --config javac
 --accept licenses
 https://stackoverflow.com/questions/39760172/you-have-not-accepted-the-license-agreements-of-the-following-sdk-components
 
+addons to CORS 
+ttps://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/?src=search
+
 
