@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { Router } from '@angular/router';
 import { IonSlides } from '@ionic/angular';
@@ -31,6 +31,8 @@ export class HomePage {
   public playStatus:  boolean = false;
   public pauseStatus: boolean = false;
   public stopStatus:  boolean = false;
+
+  @ViewChild('slidesList', { static: false } ) slidesList: IonSlides;
   
   constructor(private media: Media,
               private router: Router,
@@ -180,10 +182,19 @@ export class HomePage {
     this.getDuration();
   }
 
-  // ionSlideDidChange()
-  // {
+  xd() 
+  {
+    let index = this.slidesList.getActiveIndex()
+    .then(activeIndex => {
+      console.log('active index = ', activeIndex );
+
+      this.setSong(this.songs[activeIndex].image);
+    });
+
     
-  // }
+    //console.log('slide changed',this.slidesList.slideNext());
+
+  }
   
   
 

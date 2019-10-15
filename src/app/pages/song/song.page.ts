@@ -40,7 +40,7 @@ export class SongPage implements OnInit {
     this.platformsList = this.platform.platforms().toString();
     // this.browser = this.environmentService.isBrowser();
 
-    this.song = new SongModel();
+    this.song = new SongModel(0,'','');
 
   }
 
