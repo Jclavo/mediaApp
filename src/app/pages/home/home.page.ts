@@ -177,7 +177,7 @@ export class HomePage {
     //Set Status
     this.playStatus = true;
 
-    //setInterval(()=> { this.setRange() }, 1000); // CALL every Second
+    setInterval(()=> { this.setRange() }, 1000); // CALL every Second
   
     this.getDuration();
   }
@@ -187,6 +187,9 @@ export class HomePage {
     let index = this.slidesList.getActiveIndex()
     .then(activeIndex => {
       console.log('active index = ', activeIndex );
+
+      //this.file.release();
+      this.stopAudio();
 
       this.setSong(this.songs[activeIndex].image);
     });

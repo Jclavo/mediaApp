@@ -17,18 +17,23 @@
     <!-- IMAGE -->
     <ion-item>
       <p>{{imageURI}}</p>
-      <ion-button color="secondary" (click)="getImage()">Get Image</ion-button>
+      <ion-button color="secondary" (click)="getFile('JPG')">Choose Image</ion-button>
     </ion-item>
-    <ion-item>
-      <h4>Image Preview</h4>
-      <!-- [src]="song.image" -->
-      <img [src]="song.image" name="image" alt="Ionic File" width="300" />
-    </ion-item>
-    <input #inputcamera class="inputUpload" type="file" accept="image/*" capture="camera" [hidden]=true />
 
     <ion-item>
-      <ion-button (click)="uploadFile()">Upload</ion-button>
+      <h4>Image Preview</h4>
+      <img [src]="song.image" name="image" alt="Ionic File" width="300" />
     </ion-item>
+    <input #inputImage class="inputUpload" type="file" accept="image/*" capture="camera" [hidden]=true />
+
+    <!-- MP3 -->
+    <ion-item>
+      <!-- <p>{{mp3URI}}</p> -->
+      <ion-button color="secondary" (click)="getFile('MP3')">Choose Song</ion-button>
+    </ion-item>
+
+    <input #inputMP3 class="inputUpload" type="file" accept="mp3/*" [hidden]=true />
+
 
     <ion-fab vertical="botton" horizontal="top" slot="fixed">
       <section>
@@ -41,8 +46,8 @@
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar>
-      <ion-title>{{platformsList}}</ion-title>
-      <ion-title>{{browser}}</ion-title>
-    </ion-toolbar>
-  </ion-footer>
+  <ion-toolbar>
+    <ion-title>{{platformsList}}</ion-title>
+    <ion-title>{{browser}}</ion-title>
+  </ion-toolbar>
+</ion-footer>

@@ -34,6 +34,7 @@ export class SongService {
         return new SongModel(
           item.id,
           item.name,
+          item.path,
           item.path
         );
       });

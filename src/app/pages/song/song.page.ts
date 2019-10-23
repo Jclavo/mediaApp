@@ -16,64 +16,71 @@ import { SongModel } from 'src/app/models/Song.model';
 })
 export class SongPage implements OnInit {
 
-  @ViewChild('inputcamera', { static: false }) cameraInput: ElementRef;
+  @ViewChild('inputImage', { static: false }) inputImage: ElementRef;
+  @ViewChild('inputMP3',   { static: false }) inputMP3:   ElementRef;
 
-  public imageURI: any;
+  public imageURI: string;
+  public mp3URI: string;
+
   public imageFileName: any;
+
+
   public platformsList: any;
   public browser: any;
 
   private song: SongModel;
 
   constructor(private camera: Camera,
-    private actionSheetController: ActionSheetController,
-    // private fileChooser: FileChooser,
-    private file: File,
-    private platform: Platform,
-    // private environmentService: EnvironmentService
+              private actionSheetController: ActionSheetController,
+              private file: File,
+              private platform: Platform,
   ) { }
 
   ngOnInit(
   ) {
-    // console.log('Platform', this.environmentService.isBrowser());
-    //console.log('Platform List', this.platform.platforms());
-    this.platformsList = this.platform.platforms().toString();
-    // this.browser = this.environmentService.isBrowser();
 
-    this.song = new SongModel(0,'','');
+    this.platformsList = this.platform.platforms().toString();
+
+    this.song = new SongModel(0,null,null,null);
 
   }
 
   ionViewDidEnter() {
 
-    const element = this.cameraInput.nativeElement as HTMLInputElement;
-    element.onchange = () => {
+    const elementImage = this.inputImage.nativeElement as HTMLInputElement;
+    elementImage.onchange = () => {
 
       // Depois colocar um loading aqui!!!     
-
       const reader = new FileReader();
 
       reader.onload = (r: any) => {
 
-        //THIS IS THE ORIGINAL BASE64 STRING AS SNAPPED FROM THE CAMERA
-        //THIS IS PROBABLY THE ONE TO UPLOAD BACK TO YOUR DB AS IT'S UNALTERED
-        //UP TO YOU, NOT REALLY BOTHERED
         let base64 = r.target.result as string;
 
         //this.imageFileName = r.target.result as string; //MEU JC
-        this.song.image = r.target.result as string; //MEU JC
-
-        //FIXING ORIENTATION USING NPM PLUGIN fix-orientation
-        // fixOrientation(base64, { image: true }, (fixed: string, image: any) => {
-        //   //fixed IS THE NEW VERSION FOR DISPLAY PURPOSES
-        //   this.Foto = fixed;
-        //   //this.alertService.hideLoader(500);
-        // });
-
+        this.imageURI = r.target.result as string; //MEU JC
       };
 
       //console.log('imagem: ', element.files[0]);
-      reader.readAsDataURL(element.files[0]);
+      reader.readAsDataURL(elementImage.files[0]);
+    };
+
+    const elementMP3 = this.inputMP3.nativeElement as HTMLInputElement;
+    elementMP3.onchange = () => {
+
+      // Depois colocar um loading aqui!!!     
+      const reader = new FileReader();
+
+      reader.onload = (r: any) => {
+
+        let base64 = r.target.result as string;
+
+        //this.imageFileName = r.target.result as string; //MEU JC
+        this.mp3URI = r.target.result as string; //MEU JC
+      };
+
+      //console.log('imagem: ', element.files[0]);
+      reader.readAsDataURL(elementMP3.files[0]);
     };
   }
 
@@ -152,11 +159,8 @@ export class SongPage implements OnInit {
 
   loadFromPC() {
 
-    const element = this.cameraInput.nativeElement as HTMLInputElement;
-    element.click();
-
-
-
+    const elementImage = this.inputImage.nativeElement as HTMLInputElement;
+    elementImage.click();
 
     // this.fileChooser.open()
     //   .then(uri => console.log(uri))
@@ -179,9 +183,31 @@ export class SongPage implements OnInit {
     // }
   }
 
+  getFile(fileType: string)
+  {
+    switch(fileType) {
+      case 'MP3':
+        // code block
+        const elementMP3 = this.inputMP3.nativeElement as HTMLInputElement;
+        elementMP3.click();
+        break;
+
+      case 'JPG':
+        // code block
+        const elementImage = this.inputImage.nativeElement as HTMLInputElement;
+        elementImage.click();
+        break;
+      default:
+        // code block
+    } 
+  }
+  
+
   saveSong(formSong)
   {
-    formSong.value.image = this.song.image;
+    formSong.value.image = this.imageURI;
+    formSong.value.song  = this.mp3URI;
+
 
     //We can use this code above
   //   const imgBlob = new Blob([reader.result], {
@@ -189,7 +215,7 @@ export class SongPage implements OnInit {
   // });
   // formData.append('file', imgBlob, file.name);
 
-    console.log('FORM', formSong);
+    console.log('FORM', formSong.value);
   }
 
 }
