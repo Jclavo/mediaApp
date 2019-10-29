@@ -7,6 +7,10 @@ import { File } from '@ionic-native/file/ngx';
 //Model
 import { SongModel } from 'src/app/models/Song.model';
 
+//service
+import { SongService } from '../../services/song.service';
+import { Form } from '@angular/forms';
+
 
 
 @Component({
@@ -17,10 +21,10 @@ import { SongModel } from 'src/app/models/Song.model';
 export class SongPage implements OnInit {
 
   @ViewChild('inputImage', { static: false }) inputImage: ElementRef;
-  @ViewChild('inputMP3',   { static: false }) inputMP3:   ElementRef;
+  @ViewChild('inputMP3', { static: false }) inputMP3: ElementRef;
 
   public imageURI: string;
-  public mp3URI: string;
+  public mp3URI: any;
 
   public imageFileName: any;
 
@@ -31,9 +35,10 @@ export class SongPage implements OnInit {
   private song: SongModel;
 
   constructor(private camera: Camera,
-              private actionSheetController: ActionSheetController,
-              private file: File,
-              private platform: Platform,
+    private actionSheetController: ActionSheetController,
+    private file: File,
+    private platform: Platform,
+    private songService: SongService,
   ) { }
 
   ngOnInit(
@@ -41,7 +46,7 @@ export class SongPage implements OnInit {
 
     this.platformsList = this.platform.platforms().toString();
 
-    this.song = new SongModel(0,null,null,null);
+    this.song = new SongModel(0, null, null, null);
 
   }
 
@@ -73,14 +78,27 @@ export class SongPage implements OnInit {
 
       reader.onload = (r: any) => {
 
+        //console.log('super raw',r);
+
         let base64 = r.target.result as string;
 
-        //this.imageFileName = r.target.result as string; //MEU JC
-        this.mp3URI = r.target.result as string; //MEU JC
+        //console.log('test: ', reader.result);
+
+
+        // var file = new File();
+
+        // file.createFile(r.target, "name",true);
+
+        // console.log('file',file);
+
+        //this.song.path = this.mp3URI;
       };
 
       //console.log('imagem: ', element.files[0]);
       reader.readAsDataURL(elementMP3.files[0]);
+
+      this.song.song = elementMP3.files[0];
+      this.imageFileName = elementMP3.files[0].name;
     };
   }
 
@@ -183,9 +201,8 @@ export class SongPage implements OnInit {
     // }
   }
 
-  getFile(fileType: string)
-  {
-    switch(fileType) {
+  getFile(fileType: string) {
+    switch (fileType) {
       case 'MP3':
         // code block
         const elementMP3 = this.inputMP3.nativeElement as HTMLInputElement;
@@ -198,24 +215,42 @@ export class SongPage implements OnInit {
         elementImage.click();
         break;
       default:
-        // code block
-    } 
+      // code block
+    }
   }
-  
-
-  saveSong(formSong)
-  {
-    formSong.value.image = this.imageURI;
-    formSong.value.song  = this.mp3URI;
 
 
-    //We can use this code above
-  //   const imgBlob = new Blob([reader.result], {
-  //     type: file.type
-  // });
-  // formData.append('file', imgBlob, file.name);
+  saveSong(formSong: any) {
 
-    console.log('FORM', formSong.value);
+    this.song.title = formSong.value.title;
+   
+    const formData = new FormData();
+
+    formData.append('title', this.song.title);
+    formData.append('song', this.song.song, this.song.song.name);
+
+    console.log('FORM', formData);
+
+    this.createSong(formData);
+
+  }
+
+  createSong(formData) {
+    
+
+
+    // https://stackoverflow.com/questions/41697980/laravel-request-hasfile-is-not-working
+    // https://www.techiediaries.com/angular-formdata/
+
+
+
+    this.songService.createSong(formData).subscribe(data => {
+      console.log(data);
+    },
+      error => { console.log('Received an error') }
+    );
+
+
   }
 
 }

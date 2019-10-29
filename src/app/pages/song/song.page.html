@@ -6,7 +6,7 @@
 
 <ion-content>
 
-  <form #form="ngForm" (ngSubmit)="saveSong(form)" method="post">
+  <form #form="ngForm" (ngSubmit)="saveSong(form)" method="post" >
 
     <ion-label position="floating">Song's title:</ion-label>
     <ion-item>
@@ -24,11 +24,11 @@
       <h4>Image Preview</h4>
       <img [src]="song.image" name="image" alt="Ionic File" width="300" />
     </ion-item>
-    <input #inputImage class="inputUpload" type="file" accept="image/*" capture="camera" [hidden]=true />
+    <input #inputImage class="inputUpload"  type="file" accept="image/*" capture="camera" [hidden]=true />
 
     <!-- MP3 -->
     <ion-item>
-      <!-- <p>{{mp3URI}}</p> -->
+      <p>{{ imageFileName }}</p>
       <ion-button color="secondary" (click)="getFile('MP3')">Choose Song</ion-button>
     </ion-item>
 

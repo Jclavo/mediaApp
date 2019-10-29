@@ -15,7 +15,7 @@
 
 
   <ion-slides (ionSlideDidChange)="xd()" #slidesList>
-    <ion-slide *ngFor="let s of songs"  >
+    <ion-slide *ngFor="let song of songs"  >
       <ion-card>
         <!-- <ion-thumbnail style="text-align:center;">
             <img src="assets/imgs/music.png"/>
@@ -25,9 +25,9 @@
 
         <ion-card-content>
           <ion-card-title>
-            {{ s.name }}
+            {{ song.title }}
           </ion-card-title>
-          <p> Genre: xxxxxx </p>
+          <p> Genre: {{ song.genre_id }} </p>
         </ion-card-content>
         <ion-row>
           <ion-col>
